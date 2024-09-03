@@ -1,0 +1,5 @@
+const FIGMENT_API_URL = 'http://localhost:3001/api';
+const VAULT_ADDRESS = '0xa4541402bc568b16699e4f5418c5fb4c05934014';
+const API_KEY = 'f30eb505d3bb693ad9ba828b7d2b091e';
+
+export { FIGMENT_API_URL, VAULT_ADDRESS, API_KEY };

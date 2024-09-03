@@ -1,0 +1,385 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap');
+
+body, html {
+  background-color: #f5f5f5; /* Soft white background */
+  color: #333; /* Darker text for contrast */
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.staking-interface {
+  max-width: 800px;
+  margin: 0 auto;
+  margin-bottom: 200px !important;
+  padding-left: 30px !important;
+  padding-right: 30px !important;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', sans-serif;
+  color: #ffffff;
+}
+
+h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  color: #004039;
+}
+
+.staking-interface h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.staking-interface input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.staking-interface button {
+  width: 100%;
+  padding: 10px;
+  background-color: #004039;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.staking-interface button:hover {
+  background-color: #00554c;
+}
+
+.staking-interface button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.wallet-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  background-color: #e8f5e9;
+  padding: 15px;
+  border-radius: 8px;
+  border: 2px solid #004039;
+}
+
+.wallet-info {
+  display: flex;
+  align-items: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: bold;
+  color: #004039;
+}
+
+.wallet-address {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: #004039;
+  word-break: break-all;
+  margin-left: 5px;
+}
+
+.error-message {
+  color: #d32f2f;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.success-message {
+  color: #388e3c;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.response-section {
+  background-color: #2b2b2b;
+  color: #e6e6e6;
+  font-family: monospace;
+  padding: 20px;
+  border-radius: 5px;
+  overflow-x: auto;
+  margin-top: 20px;
+  max-height: 600px; /* Set your desired max height here */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.response-section strong {
+  color: #ffffff; /* Change this to make bold text white */
+}
+
+.response-section h3 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.response-section h4,
+.response-section p,
+.response-section ul {
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.response-section ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.response-section li {
+  margin-bottom: 5px;
+}
+
+.wrap-text {
+  word-break: break-all;
+  white-space: normal;
+}
+
+.topics-list {
+  list-style-type: none;
+  padding-left: 0;
+  text-align: left;
+}
+
+.topics-list li {
+  margin-bottom: 10px;
+}
+
+.topics-list .label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: bold;
+  color: #ffffff;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.topics-list .value {
+  word-break: break-all;
+  display: block;
+}
+
+.tx-link {
+  color: #ffffff;
+  text-decoration: none;
+  word-break: break-all;
+  text-decoration-line: underline;
+}
+
+.tx-link:hover {
+  text-decoration: underline;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.staking-input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.staking-input:focus {
+  outline: none;
+  border-color: #004039;
+  box-shadow: 0 0 0 2px rgba(0,64,57,.25);
+}
+
+.button-container {
+  display: flex;
+  gap: 10px;
+}
+
+.input-group {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.input-group .staking-input {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.input-dropdown {
+  width: 150px;
+}
+
+.endpoint-dropdown {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #fff;
+}
+
+.endpoint-dropdown:focus {
+  outline: none;
+  border-color: #004039;
+  box-shadow: 0 0 0 2px rgba(0,64,57,.25);
+}
+
+.indented-list {
+  padding-left: 30px !important;
+  margin-left: 20px !important;
+  list-style-type: none !important;
+}
+
+.indented-list li {
+  margin-bottom: 8px !important;
+  text-indent: -20px !important;
+  padding-left: 20px !important;
+}
+
+.indented-list li strong {
+  margin-right: 5px !important;
+}
+
+.wallet-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s, opacity 0.3s;
+}
+
+.btn-primary {
+  background-color: #004039;
+  color: white;
+  border: none;
+}
+
+.btn-secondary {
+  background-color: #f0f0f0;
+  color: #004039;
+  border: 1px solid #004039;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.bold-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+@media (max-width: 600px) {
+  .wallet-status {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .wallet-buttons {
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .wallet-buttons button {
+    flex: 1;
+  }
+}
+
+.response-content {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-all;
+  text-align: left;
+}
+
+.response-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.response-key {
+  color: #9cdcfe;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.response-value-wrapper {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+}
+
+.response-string,
+.response-number {
+  color: #ce9178;
+  word-break: break-word;
+  padding-left: 0;
+}
+
+.response-number-green {
+  color: #5cdb95;
+}
+
+.response-bracket,
+.response-comma {
+  color: #e6e6e6;
+  flex-shrink: 0;
+}
+
+/* Add this to your existing CSS file */
+
+.staking-input {
+  width: 100%;
+  max-width: 100%; /* Ensure the input fields do not exceed the container width */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.amount-input {
+  max-width: 100%; /* Ensure the input fields do not exceed the container width */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.response-empty {
+  color: #888;
+  font-style: italic;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.wrap-text {
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.loading-spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
