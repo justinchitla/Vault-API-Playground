@@ -125,7 +125,7 @@ const StakingInterface: React.FC = () => {
     const unsignedTx = data.data.unsigned_transaction_serialized;
     return {
       data: unsignedTx,
-      from: accounts[0] || undefined,
+      from: transaction.from ?? undefined,
       to: transaction.to ?? undefined,
       value: transaction.value?.toString()
     };
@@ -425,12 +425,12 @@ const StakingInterface: React.FC = () => {
           <li><strong>network:</strong> holesky</li>
           {selectedEndpoint === 'claim_withdrawal' ? (
             <>
-                            <li><strong>position_ticket:</strong> {positionTicket || '-'}</li>
+              <li><strong>position_ticket:</strong> {positionTicket || '-'}</li>
               <li><strong>timestamp:</strong> {timestamp || '-'}</li>
             </>
           ) : (
             <>
-              <li><strong>{selectedEndpoint === 'deposit' ? 'depositor_address' : 'user_address'}:</strong> {userAddress || '-'}</li>
+              <li><strong>{selectedEndpoint === 'deposit' ? 'depositor_address' : 'user_address'}:</strong> {selectedEndpoint === 'deposit' ? depositorAddress : userAddress || '-'}</li>
               <li><strong>{selectedEndpoint === 'deposit' ? 'amount' : 'assets'}:</strong> {amount || '-'}</li>
             </>
           )}
