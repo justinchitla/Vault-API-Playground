@@ -92,7 +92,7 @@ const StakingInterface: React.FC = () => {
       setError(null);
       let response;
       if (selectedEndpoint === 'deposit') {
-        response = await initiateDeposit(amount, userAddress, vaultAddress, apiKey);
+        response = await initiateDeposit(amount, depositorAddress, vaultAddress, apiKey);
       } else if (selectedEndpoint === 'withdraw') {
         response = await initiateWithdraw(amount, userAddress, vaultAddress, apiKey);
       } else if (selectedEndpoint === 'claim_withdrawal') {
