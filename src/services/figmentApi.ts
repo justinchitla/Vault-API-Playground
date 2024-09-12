@@ -138,3 +138,49 @@ export const getDepositorRewards = async (vaultAddress: string, depositorAddress
     throw error;
   }
 };
+
+export const convertSharesToAssets = async (vaultAddress: string, shares: string, apiKey: string) => {
+  try {
+    const response = await axios.post(
+      `${FIGMENT_API_URL}/vaults/${vaultAddress}/information/shares_to_assets`,
+      {
+        "network": "holesky",
+        "shares": shares
+      },
+      {
+        headers: {
+          'accept': 'application/json',
+          'x-api-key': apiKey,
+          'content-type': 'application/json',
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Shares to Assets API error:', error);
+    throw error;
+  }
+};
+
+export const convertAssetsToShares = async (vaultAddress: string, assets: string, apiKey: string) => {
+  try {
+    const response = await axios.post(
+      `${FIGMENT_API_URL}/vaults/${vaultAddress}/information/assets_to_shares`,
+      {
+        "network": "holesky",
+        "assets": assets
+      },
+      {
+        headers: {
+          'accept': 'application/json',
+          'x-api-key': apiKey,
+          'content-type': 'application/json',
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Assets to Shares API error:', error);
+    throw error;
+  }
+};
