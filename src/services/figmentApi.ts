@@ -2,13 +2,14 @@ import axios from 'axios';
 
 export const FIGMENT_API_URL = 'http://localhost:3001/api';
 
-export const initiateDeposit = async (amount: string, depositorAddress: string, vaultAddress: string, apiKey: string) => {
+export const initiateDeposit = async (amount: string, fromAddress: string, receiverAddress: string, vaultAddress: string, apiKey: string) => {
   try {
     const response = await axios.post(
       `${FIGMENT_API_URL}/vaults/${vaultAddress}/transactions/deposit`,
       { 
         network: 'holesky',
-        depositor_address: depositorAddress,
+        from_address: fromAddress,
+        receiver_address: receiverAddress,
         amount: amount
       },
       {
@@ -27,13 +28,14 @@ export const initiateDeposit = async (amount: string, depositorAddress: string, 
   }
 };
 
-export const initiateWithdraw = async (assets: string, userAddress: string, vaultAddress: string, apiKey: string) => {
+export const initiateWithdraw = async (assets: string, fromAddress: string, receiverAddress: string, vaultAddress: string, apiKey: string) => {
   try {
     const response = await axios.post(
       `${FIGMENT_API_URL}/vaults/${vaultAddress}/transactions/withdraw`,
       { 
         network: 'holesky',
-        user_address: userAddress,
+        from_address: fromAddress,
+        receiver_address: receiverAddress,
         assets: assets
       },
       {
@@ -52,12 +54,13 @@ export const initiateWithdraw = async (assets: string, userAddress: string, vaul
   }
 };
 
-export const claimWithdrawal = async (vaultAddress: string, positionTicket: string, timestamp: string, apiKey: string) => {
+export const claimWithdrawal = async (vaultAddress: string, fromAddress: string, positionTicket: string, timestamp: string, apiKey: string) => {
   try {
     const response = await axios.post(
       `${FIGMENT_API_URL}/vaults/${vaultAddress}/transactions/claim_withdrawal`,
       { 
         network: 'holesky',
+        from_address: fromAddress,
         position_ticket: positionTicket,
         timestamp: timestamp
       },
@@ -80,7 +83,7 @@ export const claimWithdrawal = async (vaultAddress: string, positionTicket: stri
 export const getDepositorBalance = async (vaultAddress: string, depositorAddress: string, apiKey: string) => {
   try {
     const response = await axios.get(
-      `${FIGMENT_API_URL}/vaults/${vaultAddress}/depositors/${depositorAddress}/balance?network=holesky`,
+      `${FIGMENT_API_URL}/vaults/${vaultAddress}/address/${depositorAddress}/balance?network=holesky`,
       {
         headers: {
           'accept': 'application/json',
@@ -96,7 +99,7 @@ export const getDepositorBalance = async (vaultAddress: string, depositorAddress
 };
 
 export const getDepositorExitPositions = async (vaultAddress: string, depositorAddress: string, apiKey: string) => {
-  const response = await axios.get(`${FIGMENT_API_URL}/vaults/${vaultAddress}/depositors/${depositorAddress}/exit_positions`, {
+  const response = await axios.get(`${FIGMENT_API_URL}/vaults/${vaultAddress}/address/${depositorAddress}/exit_positions`, {
     params: { network: 'holesky' },
     headers: {
       'accept': 'application/json',
@@ -107,7 +110,7 @@ export const getDepositorExitPositions = async (vaultAddress: string, depositorA
 };
 
 export const getDepositorActions = async (vaultAddress: string, depositorAddress: string, apiKey: string) => {
-  const response = await axios.get(`${FIGMENT_API_URL}/vaults/${vaultAddress}/depositors/${depositorAddress}/actions`, {
+  const response = await axios.get(`${FIGMENT_API_URL}/vaults/${vaultAddress}/address/${depositorAddress}/actions`, {
     params: { network: 'holesky' },
     headers: {
       'accept': 'application/json',
@@ -120,7 +123,7 @@ export const getDepositorActions = async (vaultAddress: string, depositorAddress
 export const getDepositorRewards = async (vaultAddress: string, depositorAddress: string, apiKey: string, network: string = 'holesky') => {
   try {
     const response = await axios.get(
-      `${FIGMENT_API_URL}/vaults/${vaultAddress}/depositors/${depositorAddress}/rewards`,
+      `${FIGMENT_API_URL}/vaults/${vaultAddress}/address/${depositorAddress}/rewards`,
       {
         params: { network },
         headers: {

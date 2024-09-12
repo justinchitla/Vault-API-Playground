@@ -15,8 +15,8 @@ const StakingInterface: React.FC = () => {
   const { isConnected, accounts, provider } = useWallet();
   const [vaultAddress, setVaultAddress] = useState('');
   const [apiKey, setApiKey] = useState('');
-  const [depositorAddress, setDepositorAddress] = useState('');
-  const [userAddress, setUserAddress] = useState('');
+  const [receiverAddress, setReceiverAddress] = useState('');
+  const [fromAddress, setFromAddress] = useState(''); 
   const [amount, setAmount] = useState('');
   const [positionTicket, setPositionTicket] = useState('');
   const [timestamp, setTimestamp] = useState('');
@@ -28,8 +28,8 @@ const StakingInterface: React.FC = () => {
   const [savedInputs, setSavedInputs] = useState<{ [key: string]: string[] }>({
     vaultAddress: [],
     apiKey: [],
-    userAddress: [],
-    depositorAddress: [],
+    fromAddress: [],
+    receiverAddress: [],
   });
   const [selectedEndpoint, setSelectedEndpoint] = useState('deposit');
   const [txHash, setTxHash] = useState<string | null>(null);
@@ -51,8 +51,8 @@ const StakingInterface: React.FC = () => {
       setSavedInputs({
         vaultAddress: parsedInputs.vaultAddress || [],
         apiKey: parsedInputs.apiKey || [],
-        userAddress: parsedInputs.userAddress || [],
-        depositorAddress: parsedInputs.depositorAddress || []
+        fromAddress: parsedInputs.fromAddress || [],
+        receiverAddress: parsedInputs.receiverAddress || []
       });
     }
   }, []);
@@ -92,11 +92,11 @@ const StakingInterface: React.FC = () => {
       setError(null);
       let response;
       if (selectedEndpoint === 'deposit') {
-        response = await initiateDeposit(amount, depositorAddress, vaultAddress, apiKey);
+        response = await initiateDeposit(amount, fromAddress, receiverAddress, vaultAddress, apiKey); 
       } else if (selectedEndpoint === 'withdraw') {
-        response = await initiateWithdraw(amount, userAddress, vaultAddress, apiKey);
+        response = await initiateWithdraw(amount, fromAddress, receiverAddress, vaultAddress, apiKey); 
       } else if (selectedEndpoint === 'claim_withdrawal') {
-        response = await claimWithdrawal(vaultAddress, positionTicket, timestamp, apiKey);
+        response = await claimWithdrawal(vaultAddress, fromAddress, positionTicket, timestamp, apiKey);
       }
       setApiResponse(response);
       
@@ -335,35 +335,44 @@ const StakingInterface: React.FC = () => {
             ))}
           </select>
         </div>
+        <div className="input-group">
+          <input
+            type="text"
+            value={fromAddress}
+            onChange={(e) => setFromAddress(e.target.value)}
+            placeholder="Enter From Address"
+            className="staking-input"
+          />
+          <select
+            onChange={(e) => setFromAddress(e.target.value)}
+            onBlur={() => saveInput('fromAddress', fromAddress)}
+            className="input-dropdown"
+          >
+            <option value="">Select previous</option>
+            {savedInputs.fromAddress.map((addr, index) => (
+              <option key={index} value={addr}>
+                {addr}
+              </option>
+            ))}
+          </select>
+        </div>
         {selectedEndpoint !== 'claim_withdrawal' && (
           <>
             <div className="input-group">
   <input
     type="text"
-    value={selectedEndpoint === 'deposit' ? depositorAddress : userAddress}
-    onChange={(e) => 
-      selectedEndpoint === 'deposit' 
-        ? setDepositorAddress(e.target.value) 
-        : setUserAddress(e.target.value)
-    }
-    placeholder={selectedEndpoint === 'deposit' ? "Enter Depositor Address" : "Enter User Address"}
+    value={receiverAddress}
+    onChange={(e) => setReceiverAddress(e.target.value)}
+    placeholder={"Enter Receiver Address"}
     className="staking-input"
   />
   <select
-    onChange={(e) => 
-      selectedEndpoint === 'deposit' 
-        ? setDepositorAddress(e.target.value) 
-        : setUserAddress(e.target.value)
-    }
-    onBlur={() => 
-      selectedEndpoint === 'deposit' 
-        ? saveInput('depositorAddress', depositorAddress) 
-        : saveInput('userAddress', userAddress)
-    }
+    onChange={(e) => setReceiverAddress(e.target.value)}
+    onBlur={() => saveInput('receiverAddress', receiverAddress)}
     className="input-dropdown"
   >
     <option value="">Select previous</option>
-    {(selectedEndpoint === 'deposit' ? savedInputs.depositorAddress : savedInputs.userAddress)?.map((addr, index) => (
+    {(savedInputs.receiverAddress)?.map((addr, index) => (
       <option key={index} value={addr}>
         {addr}
       </option>
@@ -425,12 +434,14 @@ const StakingInterface: React.FC = () => {
           <li><strong>network:</strong> holesky</li>
           {selectedEndpoint === 'claim_withdrawal' ? (
             <>
+              <li><strong>from_address:</strong> {fromAddress || '-'}</li>
               <li><strong>position_ticket:</strong> {positionTicket || '-'}</li>
               <li><strong>timestamp:</strong> {timestamp || '-'}</li>
             </>
           ) : (
             <>
-              <li><strong>{selectedEndpoint === 'deposit' ? 'depositor_address' : 'user_address'}:</strong> {selectedEndpoint === 'deposit' ? depositorAddress : userAddress || '-'}</li>
+              <li><strong>from_address:</strong> {fromAddress}</li>
+              <li><strong>receiver_address:</strong> {receiverAddress}</li>
               <li><strong>{selectedEndpoint === 'deposit' ? 'amount' : 'assets'}:</strong> {amount || '-'}</li>
             </>
           )}
